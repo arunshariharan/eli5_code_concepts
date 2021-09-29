@@ -30,7 +30,7 @@ With microservice architecture comes the freedom to choose the best programming 
 - Identity service for Auth, written in `Go`
 - A couple of lambdas behind an API gateway written in `python` and `JavaScript` 
 
-<img src="/assets/images/grpc/grpc-microservice-architecture.jpg" alt="sample microservices with different languages" style="height: 400px; width: 800px" />
+![grpc-microservice-architecture](/assets/images/grpc/grpc-microservice-architecture.jpg)
 
 
 &nbsp; &nbsp; &nbsp;  
