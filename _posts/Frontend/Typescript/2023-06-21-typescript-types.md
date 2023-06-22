@@ -10,6 +10,11 @@ tags: [typescript, built-in types, types]
   - [The "any" type](#the-any-type)
   - [Arrays](#arrays)
   - [Tuples](#tuples)
+  - [Enum](#enum)
+  - [Functions](#functions)
+    - [A void function](#a-void-function)
+    - [A function that returns a number](#a-function-that-returns-a-number)
+    - [A function that takes optional parameter.](#a-function-that-takes-optional-parameter)
 
 # Built-in Types in Typescript 
 
@@ -74,4 +79,82 @@ The following code will throw error since the first value is defined as `number`
 
 ```typescript
 user[0].toLower(); // throws 'Property 'toLower' does not exist on type 'number'.ts(2339)'
+```
+
+## Enum
+
+Enums are a set of named constants. enum Variable name should be in PascalCase, and so are its keys.
+
+```typescript
+// Declaration
+enum ShirtSize {
+  Small,
+  Medium,
+  Large,
+}
+```
+
+- By default, the first key in an enum gets assigned 0 as the value. But it can be changed
+- In the declaration below, we assign  Small as 1, and the compiler will automatically assign 2 and 3 for Medium / Large
+```typescript
+enum ShirtSize1 {
+  Small = 1,
+  Medium,
+  Large,
+}
+```
+
+- If we need to assign any other value other than number, we need to explicitly declare for each key in enum
+```typescript
+enum ShirtSizeWithStringValues {
+  Small = "s",
+  Medium = "m",
+  Large = "l",
+}
+
+// Usage
+console.log(ShirtSize.Small); // => 0
+console.log(ShirtSize1.Medium); // => 2
+console.log(ShirtSizeWithStringValues.Large); // => 'l'
+```
+
+## Functions
+
+Function is a block of code that does performs a.. function. They form the building block of any programming language
+
+### A void function
+
+```typescript
+function calculateTaxReturn(income: number) {
+  if (income < 10_000) console.log(income * 2.3);
+  else console.log(income * 1.5);
+}
+```
+
+### A function that returns a number
+
+- It is highly recommended to specify the return type in function declaration
+
+```typescript
+function calculateTaxReturn1(income: number): number {
+  if (income < 10_000) return income * 2.3;
+  else return income * 1.5;
+}
+```
+
+### A function that takes optional parameter. 
+
+- The second param is optional in the following example 
+
+```typescript
+function calculateTaxReturnWithOptionalParam(
+  income: number,
+  taxOffset = 10_000
+): number {
+  if (taxOffset < 10_000) return income * 2.3;
+  else return income * 1.5;
+}
+
+let taxReturn = calculateTaxReturnWithOptionalParam(2000); // 2000 for income & default 10_000 for taxOffset
+let taxReturn1 = calculateTaxReturnWithOptionalParam(200_000, 3000); // 200_000 for income & 3000 as taxOffset
 ```
