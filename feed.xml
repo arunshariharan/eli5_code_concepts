@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://nura.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nura.dev/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-06-22T12:05:34+10:00</updated><id>https://nura.dev/feed.xml</id><title type="html">Nura Dev</title><subtitle>My space to write code blocks and concepts so I can come back to it later when I need them.</subtitle><entry><title type="html">Built-in types in Typescript</title><link href="https://nura.dev/posts/typescript-types/" rel="alternate" type="text/html" title="Built-in types in Typescript" /><published>2023-06-21T15:41:00+10:00</published><updated>2023-06-22T12:04:57+10:00</updated><id>https://nura.dev/posts/typescript-types</id><content type="html" xml:base="https://nura.dev/posts/typescript-types/"><![CDATA[<ul>
+  <li><a href="#built-in-types-in-typescript">Built-in Types in Typescript</a>
+    <ul>
+      <li><a href="#the-any-type">The “any” type</a></li>
+      <li><a href="#arrays">Arrays</a></li>
+      <li><a href="#tuples">Tuples</a></li>
+      <li><a href="#enum">Enum</a></li>
+      <li><a href="#functions">Functions</a>
+        <ul>
+          <li><a href="#a-void-function">A void function</a></li>
+          <li><a href="#a-function-that-returns-a-number">A function that returns a number</a></li>
+          <li><a href="#a-function-that-takes-optional-parameter">A function that takes optional parameter.</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="built-in-types-in-typescript">Built-in Types in Typescript</h1>
+
+<h2 id="the-any-type">The “any” type</h2>
+<p>If you declare but don’t initialise to anything, it becomes “any” type</p>
+
+<p><code class="language-plaintext highlighter-rouge">let someValue;</code></p>
+
+<p>This “any” type can be assigned to anything, but it is not recommended to use “any” type because it defeats purpose of Typescript</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nx">someValue</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">someValue</span><span class="p">);</span> <span class="c1">// =&gt; 1</span>
+<span class="nx">someValue</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Typescript</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">someValue</span><span class="p">);</span> <span class="c1">// =&gt; 'Typescript'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="arrays">Arrays</h2>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">numbersArray</span><span class="p">:</span> <span class="kr">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span> <span class="c1">// Explicit declaration</span>
+<span class="kd">let</span> <span class="nx">numbersArray1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span> <span class="c1">// Implicit declaration</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>When declaring empty array, you must explicitly declare the type. Otherwise it becomes “any” type array</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">emptyArray</span><span class="p">:</span><span class="kr">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c1">// Example function</span>
+<span class="kd">let</span> <span class="nx">numbersArray3</span><span class="p">:</span> <span class="kr">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">logValue</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">numbersArray3</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">n</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+    <span class="k">else</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">toExponential</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">logValue</span><span class="p">();</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="tuples">Tuples</h2>
+
+<p>A Fixed type array, used for assigning key/value pairs mostly.
+It is a single variable name, but has multiple types in the array, unlike tuples in other languages (c#) where each value in a tuple has its own variable name</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c1">// Declaration</span>
+<span class="kd">let</span> <span class="nx">user</span><span class="p">:</span> <span class="p">[</span><span class="kr">number</span><span class="p">,</span> <span class="kr">string</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">33</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Arun</span><span class="dl">"</span><span class="p">];</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Typescript is smart enough to understand each value’s type, so we can perform appropriate actions on them. For example, the following is valid.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nx">user</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">user</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">toLower</span><span class="p">();</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following code will throw error since the first value is defined as <code class="language-plaintext highlighter-rouge">number</code>, and hence any <code class="language-plaintext highlighter-rouge">string</code> specific operations are not possible.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">user</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toLower</span><span class="p">();</span> <span class="c1">// throws 'Property 'toLower' does not exist on type 'number'.ts(2339)'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="enum">Enum</h2>
+
+<p>Enums are a set of named constants. enum Variable name should be in PascalCase, and so are its keys.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1">// Declaration</span>
+<span class="kr">enum</span> <span class="nx">ShirtSize</span> <span class="p">{</span>
+  <span class="nx">Small</span><span class="p">,</span>
+  <span class="nx">Medium</span><span class="p">,</span>
+  <span class="nx">Large</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>By default, the first key in an enum gets assigned 0 as the value. But it can be changed</li>
+  <li>In the declaration below, we assign  Small as 1, and the compiler will automatically assign 2 and 3 for Medium / Large
+    <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kr">enum</span> <span class="nx">ShirtSize1</span> <span class="p">{</span>
+<span class="nx">Small</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="nx">Medium</span><span class="p">,</span>
+<span class="nx">Large</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>If we need to assign any other value other than number, we need to explicitly declare for each key in enum</li>
+</ul>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="kr">enum</span> <span class="nx">ShirtSizeWithStringValues</span> <span class="p">{</span>
+  <span class="nx">Small</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">s</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">Medium</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">m</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">Large</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">l</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">// Usage</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ShirtSize</span><span class="p">.</span><span class="nx">Small</span><span class="p">);</span> <span class="c1">// =&gt; 0</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ShirtSize1</span><span class="p">.</span><span class="nx">Medium</span><span class="p">);</span> <span class="c1">// =&gt; 2</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ShirtSizeWithStringValues</span><span class="p">.</span><span class="nx">Large</span><span class="p">);</span> <span class="c1">// =&gt; 'l'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="functions">Functions</h2>
+
+<p>Function is a block of code that does performs a.. function. They form the building block of any programming language</p>
+
+<h3 id="a-void-function">A void function</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">function</span> <span class="nx">calculateTaxReturn</span><span class="p">(</span><span class="nx">income</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">income</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="nx">_000</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">income</span> <span class="o">*</span> <span class="mf">2.3</span><span class="p">);</span>
+  <span class="k">else</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">income</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="a-function-that-returns-a-number">A function that returns a number</h3>
+
+<ul>
+  <li>It is highly recommended to specify the return type in function declaration</li>
+</ul>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">function</span> <span class="nx">calculateTaxReturn1</span><span class="p">(</span><span class="nx">income</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">income</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="nx">_000</span><span class="p">)</span> <span class="k">return</span> <span class="nx">income</span> <span class="o">*</span> <span class="mf">2.3</span><span class="p">;</span>
+  <span class="k">else</span> <span class="k">return</span> <span class="nx">income</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="a-function-that-takes-optional-parameter">A function that takes optional parameter.</h3>
+
+<ul>
+  <li>The second param is optional in the following example</li>
+</ul>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="kd">function</span> <span class="nx">calculateTaxReturnWithOptionalParam</span><span class="p">(</span>
+  <span class="nx">income</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span>
+  <span class="nx">taxOffset</span> <span class="o">=</span> <span class="mi">10</span><span class="nx">_000</span>
+<span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">taxOffset</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="nx">_000</span><span class="p">)</span> <span class="k">return</span> <span class="nx">income</span> <span class="o">*</span> <span class="mf">2.3</span><span class="p">;</span>
+  <span class="k">else</span> <span class="k">return</span> <span class="nx">income</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">taxReturn</span> <span class="o">=</span> <span class="nx">calculateTaxReturnWithOptionalParam</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span> <span class="c1">// 2000 for income &amp; default 10_000 for taxOffset</span>
+<span class="kd">let</span> <span class="nx">taxReturn1</span> <span class="o">=</span> <span class="nx">calculateTaxReturnWithOptionalParam</span><span class="p">(</span><span class="mi">200</span><span class="nx">_000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">);</span> <span class="c1">// 200_000 for income &amp; 3000 as taxOffset</span>
+</pre></td></tr></tbody></table></code></pre></div></div>]]></content><author><name></name></author><category term="frontend" /><category term="typescript" /><category term="built-in types" /><category term="types" /><summary type="html"><![CDATA[Built-in Types in Typescript The “any” type Arrays Tuples Enum Functions A void function A function that returns a number A function that takes optional parameter.]]></summary></entry><entry><title type="html">Singleton - Creational design pattern</title><link href="https://nura.dev/posts/Singleton/" rel="alternate" type="text/html" title="Singleton - Creational design pattern" /><published>2023-04-05T13:43:47+10:00</published><updated>2023-04-05T13:43:47+10:00</updated><id>https://nura.dev/posts/Singleton</id><content type="html" xml:base="https://nura.dev/posts/Singleton/"><![CDATA[<p><strong>Table of contents</strong></p>
+<ul>
+  <li><a href="#singleton">Singleton</a></li>
+</ul>
+
+<h1 id="singleton">Singleton</h1>
+
+<p><code class="language-plaintext highlighter-rouge">The intent of singleton patterns is to ensure that at any given time a class has only one instance and to provide a global point of access to it</code></p>]]></content><author><name></name></author><category term="design_patterns" /><category term="singleton" /><category term="creational" /><category term="design" /><category term="patterns" /><category term="design patterns" /><category term="c#" /><category term="c# 10" /><summary type="html"><![CDATA[Table of contents Singleton]]></summary></entry><entry><title type="html">Design Patterns using C# 10</title><link href="https://nura.dev/posts/design-patterns-using-c-10/" rel="alternate" type="text/html" title="Design Patterns using C# 10" /><published>2023-04-05T13:23:47+10:00</published><updated>2023-04-05T13:23:47+10:00</updated><id>https://nura.dev/posts/design-patterns-using-c#-10</id><content type="html" xml:base="https://nura.dev/posts/design-patterns-using-c-10/"><![CDATA[<p><strong>Table of Contents</strong></p>
+<ul>
+  <li><a href="#design-patterns">Design patterns</a>
+    <ul>
+      <li><a href="#creational-patterns">Creational patterns</a></li>
+      <li><a href="#structural-patterns">Structural patterns</a></li>
+      <li><a href="#behavioral-patterns">Behavioral patterns</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="design-patterns">Design patterns</h1>
+<p>We will be covering the design patterns set forth by the Gang of Four (GoF). There are around 23 patterns divided in to 3 categories, namely</p>
+<ul>
+  <li>Creational</li>
+  <li>Structural</li>
+  <li>Behavioral</li>
+</ul>
+
+<p>In this post, we will look at each of these patterns to understand what they are, when to use them, pros and cons along with real coding examples using C#10.</p>
+
+<h2 id="creational-patterns">Creational patterns</h2>
+
+<p>These patterns help make the <strong>system independent of how its objects are being created, composed or structured</strong>. The following are the 5 creational patterns</p>
+
+<ul>
+  <li><a href="/posts/Singleton/#singleton">Singleton</a></li>
+  <li>Factory</li>
+  <li>Abstract Factory</li>
+  <li>Builder</li>
+  <li>Prototype</li>
+</ul>
+
+<h2 id="structural-patterns">Structural patterns</h2>
+
+<p>These patterns concerns with <strong>how classes and objects are composed to form large complex structures</strong>. Think about <em>inheritance and composition</em>. There are 7 structural patterns</p>
+
+<ul>
+  <li>Adapter</li>
+  <li>Composite</li>
+  <li>Proxy</li>
+  <li>Flyweight</li>
+  <li>Facade</li>
+  <li>Bridge</li>
+  <li>Decorator</li>
+</ul>
+
+<h2 id="behavioral-patterns">Behavioral patterns</h2>
+
+<p>These patterns deal with the <strong>control-flow of the project</strong> which could be hard to navigate during the runtime. These patterns helps us <strong>focus on the way objects are interconnected</strong>. Think about <strong>loose coupling, extensibility</strong> etc. There are 11 behavioral patterns in total.</p>
+
+<ul>
+  <li>Template method</li>
+  <li>Mediator</li>
+  <li>Chain of responsibility</li>
+  <li>Observer</li>
+  <li>Strategy</li>
+  <li>Command</li>
+  <li>State</li>
+  <li>Visitor</li>
+  <li>Interpretor</li>
+  <li>Iterator</li>
+  <li>Memento</li>
+</ul>]]></content><author><name></name></author><category term="design_patterns" /><category term="design" /><category term="patterns" /><category term="design patterns" /><category term="c#" /><category term="c# 10" /><summary type="html"><![CDATA[Table of Contents Design patterns Creational patterns Structural patterns Behavioral patterns]]></summary></entry><entry><title type="html">gRPC Basic concepts</title><link href="https://nura.dev/posts/gRPC-concepts/" rel="alternate" type="text/html" title="gRPC Basic concepts" /><published>2021-09-30T01:03:47+10:00</published><updated>2021-09-30T01:03:47+10:00</updated><id>https://nura.dev/posts/gRPC-concepts</id><content type="html" xml:base="https://nura.dev/posts/gRPC-concepts/"><![CDATA[<p><strong>Table of contents</strong></p>
+<ul>
+  <li><a href="#basic-components-in-grpc">Basic components in gRPC</a>
+    <ul>
+      <li><a href="#a-sample-proto-file">A sample proto file</a></li>
+    </ul>
+  </li>
+  <li><a href="#rpc-lifecycle">RPC Lifecycle</a></li>
+  <li><a href="#message-types">Message Types</a></li>
+  <li><a href="#authentication-options">Authentication options</a></li>
+</ul>
+
+<h1 id="basic-components-in-grpc">Basic components in gRPC</h1>
+
+<p>As with most interservice communications, gRPC supports the concept of clients and servers. There are no restrictions on the number of client/servers and how they are interconnected but the difference happens in the way they communicate with each other. Generally on a REST based implementation, the server (let’s say an API) would expose its API endpoints and the clients usually make a HTTP request to those endpoints. But in gRPC, the API would instead</p>
+<ul>
+  <li>define all the contracts in a <code class="language-plaintext highlighter-rouge">protobuf</code> file (<code class="language-plaintext highlighter-rouge">example.proto</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">generate gRPC code</code> when the project is built (or an equivalent approach for dynamic languages)</li>
+</ul>
+
+<p>Similarly, the client would define its own messages in a protobuf files. The client side protobuf files usually deal with preparing to send a message that the server understands, receiving a response and serialising/deserialising them etc which are all abstracted away, thanks to the protobuf layer. Finally, all the client needs to do is to call the relevent method on server to get a response.</p>
+
+<p>As of this writing, there are a few experimental alternatives for protobuf in C#, such as using JSON Web APIs / HTTP REST endpoint style instead. More details can be found <a href="https://docs.microsoft.com/en-us/aspnet/core/grpc/httpapi?view=aspnetcore-5.0">here</a></p>
+
+<p><img src="/assets/images/grpc/gRPC-components.jpg" alt="Basic components of gRPC" /></p>
+
+<p>   </p>
+
+<h3 id="a-sample-proto-file">A sample proto file</h3>
+<p>Checkout a sample proto file that defines a contract for <code class="language-plaintext highlighter-rouge">GreeterApi</code> that has one method titled <code class="language-plaintext highlighter-rouge">SayHello</code>. This method takes in a <code class="language-plaintext highlighter-rouge">HelloRequest</code> as parameter and responds with <code class="language-plaintext highlighter-rouge">HelloReply</code>, both of which are again defined as messages in the file. When we build this code, it generates a gRPC code in the same language in which it is being built by default (or we can specify the language to build this to in options).</p>
+
+<div class="language-proto highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="na">syntax</span> <span class="o">=</span> <span class="s">"proto3"</span><span class="p">;</span>
+
+<span class="kd">service</span> <span class="n">GreeterApi</span> <span class="p">{</span>
+  <span class="k">rpc</span> <span class="n">SayHello</span> <span class="p">(</span><span class="n">HelloRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">HelloReply</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">HelloRequest</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">HelloReply</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="kd">message</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>   </p>
+
+<h1 id="rpc-lifecycle">RPC Lifecycle</h1>
+
+<p>We saw how protobuf generates code for us, which is in turn used to communicate with client/server. But how does the client or server initiate the connection with each other? Normally for <code class="language-plaintext highlighter-rouge">REST API requests in C#</code>, we can create a <code class="language-plaintext highlighter-rouge">HttpClient</code> and use that to send/receive requests such as <code class="language-plaintext highlighter-rouge">client.SendAsync()</code>. In gRPC it is slightly more complex than that:</p>
+<ol>
+  <li>Create a channel
+    <ol>
+      <li>This opens up the connection to the API / server</li>
+    </ol>
+  </li>
+  <li>Create a client
+    <ol>
+      <li>This is the client that will call the RPC methods generated by gRPC</li>
+      <li>This client can be reused and may need to be initialised only once during the lifecycle of the application</li>
+    </ol>
+  </li>
+  <li>Client sends a Request (with optional metadata), and server can send a metadata response
+    <ol>
+      <li>This happens even before the actual request is processed by the server</li>
+      <li>Useful in situations such as Authentication</li>
+    </ol>
+  </li>
+  <li>Once the server has processed the request, it sends back a response</li>
+</ol>
+
+<p><img src="/assets/images/grpc/RPC-lifecycle.jpg" alt="RPC-lifecycle" /></p>
+
+<p>   </p>
+
+<h1 id="message-types">Message Types</h1>
+
+<p>There are 4 types of messages that can be communicated with gRPC protocol:</p>
+<ol>
+  <li><strong>Unary</strong> <em>(single request from client, single response from server)</em>
+    <ol>
+      <li>protobuf syntax:  <code class="language-plaintext highlighter-rouge">rpc MethodName(RequestType) returns (ResponseType)</code></li>
+    </ol>
+  </li>
+  <li><strong>Server Streaming RPC</strong> <em>(single request from client, multiple responses from server)</em>
+    <ol>
+      <li>protobuf syntax: <code class="language-plaintext highlighter-rouge">rpc MethodName(RequestType) returns (stream ResponseType)</code></li>
+      <li>Used in situations like video streaming where a client makes a single request, and server responds with buffered stream of video</li>
+    </ol>
+  </li>
+  <li><strong>Client Streaming RPC</strong> <em>(multiple requests from client, single request from server)</em>
+    <ol>
+      <li>protobuf syntax: <code class="language-plaintext highlighter-rouge">rpc MethodName(stream RequestType) returns (ResponseType)</code></li>
+      <li>Used in situations such as client needing to send a multi-part upload to server</li>
+    </ol>
+  </li>
+  <li><strong>Bi-directional Streaming</strong> <em>(multiple requests from client and server, asynchronously)</em>
+    <ol>
+      <li>protobuf syntax: <code class="language-plaintext highlighter-rouge">rpc MethodName(stream RequestType) returns (stream ResponseType)</code></li>
+      <li>More complex, suited for custom scenarios that require multiple asnchronous requests/response as a stream</li>
+    </ol>
+  </li>
+</ol>
+
+<p>   </p>
+
+<h1 id="authentication-options">Authentication options</h1>
+
+<p>Authentication here deals with how the client grpc authenticates and connects with the server, so do not confuse with general user authentication. gRPC again supports 5 types of authentication:</p>
+<ul>
+  <li>Insecure authentication
+    <ul>
+      <li>Really this should only be used in dev environments for testing purposes</li>
+    </ul>
+  </li>
+  <li>SSL/TLS
+    <ul>
+      <li>This is the recommended level of authentication for gRPC</li>
+      <li>Makes use of HTTP/2 connection by default when available</li>
+      <li>Certificate is validated against the nominated trusted CA</li>
+    </ul>
+  </li>
+  <li>ALTS (Application Layer Transport Security)
+    <ul>
+      <li>Specific for Google cloud platform (GCP)</li>
+    </ul>
+  </li>
+  <li>Google token-based
+    <ul>
+      <li>This requires SSL/TLS to work, so an added layer of security when using Google token based authentication</li>
+    </ul>
+  </li>
+  <li>Custom
+    <ul>
+      <li>gRPC also allows custom implementation of authentication, such as <code class="language-plaintext highlighter-rouge">OAUTH2.0</code>.</li>
+      <li>There are several packages that support custom implementations which can be found in <a href="https://grpc.io/docs/guides/auth/">gRPC’s website.</a></li>
+    </ul>
+  </li>
+</ul>]]></content><author><name></name></author><category term="rpc" /><category term="rpc" /><category term="grpc" /><category term="proto" /><category term="authentication" /><category term="message types" /><category term="grpc concept" /><category term="unary" /><category term="auth" /><summary type="html"><![CDATA[Table of contents Basic components in gRPC A sample proto file RPC Lifecycle Message Types Authentication options]]></summary></entry><entry><title type="html">Introduction to RPC (and to an extent gRPC)</title><link href="https://nura.dev/posts/intro-to-rpc-and-gRPC/" rel="alternate" type="text/html" title="Introduction to RPC (and to an extent gRPC)" /><published>2021-09-27T21:42:47+10:00</published><updated>2021-09-30T01:12:26+10:00</updated><id>https://nura.dev/posts/intro-to-rpc-and-gRPC</id><content type="html" xml:base="https://nura.dev/posts/intro-to-rpc-and-gRPC/"><![CDATA[<p><strong>Table of contents</strong></p>
+<ul>
+  <li><a href="#introduction-to-rpc-and-to-an-extent-grpc">Introduction to RPC (and to an extent gRPC)</a></li>
+  <li><a href="#what-are-interservice-communications">What are Interservice communications?</a></li>
+  <li><a href="#interservice-communication-options">Interservice communication options</a>
+    <ul>
+      <li><a href="#rest-vs-rpc">REST vs RPC</a></li>
+      <li><a href="#grpc">gRPC</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="introduction-to-rpc-and-to-an-extent-grpc">Introduction to RPC (and to an extent gRPC)</h1>
+
+<p>I’ve always worked with REST APIs at work, in my personal projects etc. Whenever I wanted to build an API, I never even had to think twice about a different stratgey until now. I’ve read about RPCs at university, seen some examples and hear people talk about gRPC sometimes, but I never took took it seriously so far. So this is me trying to learn more about it, document my learnings so I can come back at a later stage and still remember what the heck gRPC is all about!</p>
+
+<p>If you have a subscription to Pluralsight, <a href="https://app.pluralsight.com/library/courses/grpc-enhancing-application-communication/table-of-contents">this course</a> has great explanations for most of the gRPC stuff I’ve discussed below.</p>
+
+<h1 id="what-are-interservice-communications">What are Interservice communications?</h1>
+
+<p>In our current technology landscape, it is quite popular to split a product into smaller services and have them be independant of each other. In other words, we prefer <code class="language-plaintext highlighter-rouge">microservices architeture</code> where possible. The benefits of such architecture are many and not in scope of this post. But what is in scope is the way we <em>communicate</em> between these services to <code class="language-plaintext highlighter-rouge">get resources</code> or <code class="language-plaintext highlighter-rouge">perform some actions</code>.</p>
+
+<p>With microservice architecture comes the freedom to choose the best programming language for a particular service. Let’s say as an example I have the following architecture:</p>
+<ul>
+  <li>APIs hosted in EKS written in <code class="language-plaintext highlighter-rouge">C#</code></li>
+  <li>Identity service for Auth, written in <code class="language-plaintext highlighter-rouge">Go</code></li>
+  <li>A couple of lambdas behind an API gateway written in <code class="language-plaintext highlighter-rouge">python</code> and <code class="language-plaintext highlighter-rouge">JavaScript</code></li>
+</ul>
+
+<p><img src="/assets/images/grpc/grpc-microservice-architecture.jpg" alt="grpc-microservice-architecture" /></p>
+
+<p>     </p>
+<h1 id="interservice-communication-options">Interservice communication options</h1>
+
+<p>For an architecture written in multiple languages such as above, there are two simple ways enable communication between them:</p>
+<ul>
+  <li>Resource based communication via HTTP <code class="language-plaintext highlighter-rouge">(REST)</code></li>
+  <li>Action based communication via <code class="language-plaintext highlighter-rouge">Remote Procedure Calls (RPC)</code></li>
+</ul>
+
+<p>     </p>
+
+<p><img src="/assets/images/grpc/grpc-comparison.jpg" alt="REST vs RPC (and gRPC)" /></p>
+
+<p>     </p>
+<h2 id="rest-vs-rpc">REST vs RPC</h2>
+
+<hr />
+<p>I’ve tried to summarise some very basic differences between REST and RPC below</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>S.No</th>
+      <th>REST (REpresenational State Transfer)</th>
+      <th>RPC (Remote Procedure Call)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.</td>
+      <td>Resource based communication</td>
+      <td>Action based communication</td>
+    </tr>
+    <tr>
+      <td>2.</td>
+      <td>Loosely coupled between client, server and services</td>
+      <td>Tightly coupled - The caller must know both the method to call and all the response to expect</td>
+    </tr>
+    <tr>
+      <td>3.</td>
+      <td>Embraces HTTP semantics (<code class="language-plaintext highlighter-rouge">GET product/123</code>)</td>
+      <td>Embraces programming semantics (function call such as <code class="language-plaintext highlighter-rouge">client.getProduct(ProductDetails)</code>)</td>
+    </tr>
+    <tr>
+      <td>4.</td>
+      <td>Text based messaging</td>
+      <td>Binary based messaging, hence much more efficient and faster</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>     </p>
+<h2 id="grpc">gRPC</h2>
+
+<hr />
+<p>gRPC, as you might have guessed, was developed by Google based on their internal tool called <code class="language-plaintext highlighter-rouge">Stubby</code> which they created to make interservice communication within Google products faster and efficient. Touching on some highlights about gRPC below:</p>
+<ul>
+  <li>Cross-platform support
+    <ul>
+      <li>Supports a wide variety of languages (C++, Java, C#, Go, Python, Ruby to name a few)</li>
+    </ul>
+  </li>
+  <li>Supports <em>Streaming</em> content
+    <ul>
+      <li>aggregate multi-part requests and provide a single response or</li>
+      <li>send a stream of responses for a single request (video streaming, for example)</li>
+    </ul>
+  </li>
+  <li>Layered framework
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">gRPC</code> framerwork is isolated from the <code class="language-plaintext highlighter-rouge">transport protocol</code></li>
+      <li>This enables to update gRPC framework andtTransport protocols independantly of each other</li>
+      <li>This also means that it is asy to replace the default transport protocol of gRPC from <code class="language-plaintext highlighter-rouge">protobuf</code> to something else like <code class="language-plaintext highlighter-rouge">json</code></li>
+    </ul>
+  </li>
+  <li>Exposes API via protobuf files</li>
+  <li>Generates gRPC code based on protobuf files as we build a project. These generated code enables a client to call gRPC method natively as if it was written in the same language</li>
+</ul>]]></content><author><name></name></author><category term="rpc" /><category term="rpc" /><category term="grpc" /><category term="rest" /><category term="api" /><category term="protocol" /><category term="protobuf" /><category term="proto" /><summary type="html"><![CDATA[Table of contents Introduction to RPC (and to an extent gRPC) What are Interservice communications? Interservice communication options REST vs RPC gRPC]]></summary></entry><entry><title type="html">SQL insert statement</title><link href="https://nura.dev/posts/sql-insert/" rel="alternate" type="text/html" title="SQL insert statement" /><published>2021-09-16T23:04:47+10:00</published><updated>2021-09-16T23:04:47+10:00</updated><id>https://nura.dev/posts/sql-insert</id><content type="html" xml:base="https://nura.dev/posts/sql-insert/"><![CDATA[<p>SQL statements are one of those things that I have at the tip of my tongue (or brain) but can never get them right the first go! So I am going to just write down the syntaxes, examples and some variations of SQL statements that I usually work with. To start with, lets look at <code class="language-plaintext highlighter-rouge">insert</code> statement in <code class="language-plaintext highlighter-rouge">SQL Server</code></p>
+
+<h2 id="userhobbies-table">UserHobbies table</h2>
+
+<p>Let’s say I have the following table named <code class="language-plaintext highlighter-rouge">UserHobbies</code> where the datatype of <code class="language-plaintext highlighter-rouge">UserId</code> is <code class="language-plaintext highlighter-rouge">UNIQUEIDENTIFIER</code> while the other columns are <code class="language-plaintext highlighter-rouge">varchar(150)</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">UserId</th>
+      <th style="text-align: left">HobbyType</th>
+      <th style="text-align: left">HobbyDescription</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">0836688e-08b8-4396-af38-7756d3d7bb63</td>
+      <td style="text-align: left">Read Book</td>
+      <td style="text-align: left">Harry Potter Series</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>I want to insert a new row of data. So how would I go about it?</p>
+
+<h2 id="option-1---insert-into-all-columns-of-a-table"><strong>Option 1 - Insert into ALL columns of a table</strong></h2>
+
+<p><em>Syntax</em></p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">insert</span> <span class="k">into</span> <span class="o">&lt;</span><span class="k">table_name</span><span class="o">&gt;</span>
+<span class="k">values</span> <span class="p">(</span><span class="n">col_1_value</span><span class="p">,</span> <span class="n">col_2_value</span><span class="p">,</span> <span class="p">...)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><em>Example</em></p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">insert</span> <span class="k">into</span> <span class="n">UserHobbies</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">'92a96667-14d2-4e29-9260-838a905ed5ab'</span><span class="p">,</span> <span class="s1">'Sports'</span><span class="p">,</span> <span class="s1">'Play cricket on weekends'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>  </p>
+
+<p>This would result in the <code class="language-plaintext highlighter-rouge">UserHobbies</code> table to have the following data:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">UserId</th>
+      <th style="text-align: left">HobbyType</th>
+      <th style="text-align: left">HobbyDescription</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">0836688e-08b8-4396-af38-7756d3d7bb63</td>
+      <td style="text-align: left">Read Book</td>
+      <td style="text-align: left">Harry Potter Series</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">92a96667-14d2-4e29-9260-838a905ed5ab</td>
+      <td style="text-align: left">Sports</td>
+      <td style="text-align: left">Play cricket on weekends</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>  </p>
+
+<p>It is all well and good when you have data for all the columns! But what if you did not have some information when you insert into the table?
+If the column does not require a value to be present, I could just add <code class="language-plaintext highlighter-rouge">null</code> to that respective value as follows:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">insert</span> <span class="k">into</span> <span class="n">UserHobbies</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">'29b24989-66b9-4b0f-9521-a0c495af1d2d'</span><span class="p">,</span> <span class="k">null</span> <span class="p">,</span><span class="s1">'Does not have a hobby'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">UserId</th>
+      <th style="text-align: left">HobbyType</th>
+      <th style="text-align: left">HobbyDescription</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">0836688e-08b8-4396-af38-7756d3d7bb63</td>
+      <td style="text-align: left">Read Book</td>
+      <td style="text-align: left">Harry Potter Series</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">92a96667-14d2-4e29-9260-838a905ed5ab</td>
+      <td style="text-align: left">Sports</td>
+      <td style="text-align: left">Play cricket on weekends</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">29b24989-66b9-4b0f-9521-a0c495af1d2d</td>
+      <td style="text-align: left">NULL</td>
+      <td style="text-align: left">Does not have a hobby</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>  </p>
+
+<h2 id="option-2--insert-into-select-columns-of-a-table"><strong>Option 2- Insert into select columns of a table</strong></h2>
+
+<p>Sometime you might have a table that auto-increments the <code class="language-plaintext highlighter-rouge">id</code> or calculates value for a particular column automatically.<br />
+Or you might find that certain columns take <code class="language-plaintext highlighter-rouge">null</code> value and you may not need to provide values for all the columns.<br />
+In such cases, you could try insert data into select few columns only as follows:</p>
+
+<p><em>Syntax</em></p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">insert</span> <span class="k">into</span> <span class="o">&lt;</span><span class="k">table_name</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">col_1_name</span><span class="p">,</span> <span class="n">col_2_name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="n">col_1_value</span><span class="p">,</span> <span class="n">col_2_value</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><em>Example</em></p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">insert</span> <span class="k">into</span> <span class="n">UserHobbies</span> <span class="p">(</span><span class="n">UserId</span><span class="p">,</span> <span class="n">HobbyType</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">'c7f79983-9310-4a5c-9a8d-40b24e13e4b0'</span><span class="p">,</span> <span class="s1">'Sleep'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>   </p>
+
+<p>Executing the above would result in the following table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">UserId</th>
+      <th style="text-align: left">HobbyType</th>
+      <th style="text-align: left">HobbyDescription</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">0836688e-08b8-4396-af38-7756d3d7bb63</td>
+      <td style="text-align: left">Read Book</td>
+      <td style="text-align: left">Harry Potter Series</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">92a96667-14d2-4e29-9260-838a905ed5ab</td>
+      <td style="text-align: left">Sports</td>
+      <td style="text-align: left">Play cricket on weekends</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">29b24989-66b9-4b0f-9521-a0c495af1d2d</td>
+      <td style="text-align: left">NULL</td>
+      <td style="text-align: left">Does not have a hobby</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">c7f79983-9310-4a5c-9a8d-40b24e13e4b0</td>
+      <td style="text-align: left">Sleep</td>
+      <td style="text-align: left">NULL</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>   </p>
+
+<p><strong>Note:</strong><br />
+Even though the <code class="language-plaintext highlighter-rouge">UserId</code> is <code class="language-plaintext highlighter-rouge">UNIQUEIDENTIFIER</code>, when we do an insert, we wrap it around quotes as a string. Internally MSSQL tries to convert the string into a uniqueidentifier. If you provided an invalid GUID, it will throw a conversion error such as <code class="language-plaintext highlighter-rouge">Conversion failed when converting from a character string to uniqueidentifier.</code></p>]]></content><author><name></name></author><category term="sql" /><category term="sql" /><category term="insert" /><category term="insert into" /><category term="sql server" /><category term="mssql" /><summary type="html"><![CDATA[SQL statements are one of those things that I have at the tip of my tongue (or brain) but can never get them right the first go! So I am going to just write down the syntaxes, examples and some variations of SQL statements that I usually work with. To start with, lets look at insert statement in SQL Server]]></summary></entry><entry><title type="html">Welcome to Nura Dev!</title><link href="https://nura.dev/posts/welcome-to-nura-dev/" rel="alternate" type="text/html" title="Welcome to Nura Dev!" /><published>2021-08-30T23:07:47+10:00</published><updated>2021-08-30T23:07:47+10:00</updated><id>https://nura.dev/posts/welcome-to-nura-dev</id><content type="html" xml:base="https://nura.dev/posts/welcome-to-nura-dev/"><![CDATA[<h2 id="how-great-is-your-memory">How great is your memory?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">I'll make a goldfish proud</code> - That is (unfortunately) my motto</p>
+
+<p>If you don’t work on a particular technology for a while (like a few hours or days), do you forget everything related to it? 
+Well I do, and in the process of figuring out a best way to recall the concepts / code / patterns I have created <code class="language-plaintext highlighter-rouge">nura.dev</code>.</p>
+
+<p>At Nura, I’ll try to:</p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Explain concepts like I would do a 5 year old (<strong>ELI5</strong>) or to the current year Arun (too old, don’t ask)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Write down small code blocks that I can re-use in general</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Add some blog posts of things I learn or experiment in general</li>
+</ul>
+
+<p>I’ve done the hard part of creating this website! Now on to harder stuff - writing posts!</p>
+<h6 id="psst0-if-you-are-wondering-what-nura-means-its-just-my-first-name-in-reverse"><strong>Psst[0]</strong>: If you are wondering what <code class="language-plaintext highlighter-rouge">nura</code> means, its just my first name in reverse!</h6>
+
+<h6 id="psst1-did-you-know-this-website-has-a-nice-search-feature-at-the-top-right-corner-give-it-a-whirl"><strong>Psst[1]</strong>: Did you know this website has a nice <code class="language-plaintext highlighter-rouge">Search</code> feature at the top right corner? Give it a whirl!</h6>]]></content><author><name></name></author><category term="welcome" /><category term="welcome" /><summary type="html"><![CDATA[How great is your memory?]]></summary></entry></feed>
