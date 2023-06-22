@@ -105,6 +105,7 @@ enum ShirtSize1 {
 ```
 
 - If we need to assign any other value other than number, we need to explicitly declare for each key in enum
+
 ```typescript
 enum ShirtSizeWithStringValues {
   Small = "s",
